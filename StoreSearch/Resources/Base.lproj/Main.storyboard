@@ -17,43 +17,67 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="interactive" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="0p6-yR-t0e">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="interactive" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="h7o-Th-fqw">
                                 <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <connections>
-                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="feo-OB-Qra"/>
-                                    <outlet property="delegate" destination="BYZ-38-t0r" id="bFc-S6-Fv9"/>
+                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="jgP-qp-88X"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="KqJ-yW-5RH"/>
                                 </connections>
                             </tableView>
-                            <searchBar contentMode="redraw" text="" placeholder="App name, artist, song, album, e-book" translatesAutoresizingMaskIntoConstraints="NO" id="9GW-zg-adu">
+                            <searchBar contentMode="redraw" placeholder="App name, artist, song, album, e-book" translatesAutoresizingMaskIntoConstraints="NO" id="hP9-Vc-rgY">
                                 <rect key="frame" x="0.0" y="20" width="375" height="56"/>
                                 <color key="barTintColor" name="SearchBar"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <connections>
-                                    <outlet property="delegate" destination="BYZ-38-t0r" id="xRp-LR-6y9"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="iF5-nm-amt"/>
                                 </connections>
                             </searchBar>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="deS-AX-KG8">
+                                <rect key="frame" x="0.0" y="76" width="375" height="44"/>
+                                <items>
+                                    <barButtonItem style="plain" id="3NS-iK-F60">
+                                        <segmentedControl key="customView" opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="SPd-qZ-jhc">
+                                            <rect key="frame" x="16" y="5.5" width="343" height="33"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <segments>
+                                                <segment title="All"/>
+                                                <segment title="Music"/>
+                                                <segment title="Software"/>
+                                                <segment title="E-books"/>
+                                            </segments>
+                                            <connections>
+                                                <action selector="segmentChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="XBs-Oe-Y3G"/>
+                                            </connections>
+                                        </segmentedControl>
+                                    </barButtonItem>
+                                </items>
+                            </toolbar>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="0p6-yR-t0e" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="2aH-GZ-QnE"/>
-                            <constraint firstItem="9GW-zg-adu" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="8AK-Fr-le6"/>
-                            <constraint firstItem="0p6-yR-t0e" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Bc9-hD-w9u"/>
-                            <constraint firstItem="0p6-yR-t0e" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="Cu2-9F-aKT"/>
-                            <constraint firstItem="0p6-yR-t0e" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="DIT-yo-nb2"/>
-                            <constraint firstItem="9GW-zg-adu" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="gF1-48-Az4"/>
-                            <constraint firstItem="9GW-zg-adu" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="pGg-Vg-zQa"/>
+                            <constraint firstItem="hP9-Vc-rgY" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Ih6-Tz-O5E"/>
+                            <constraint firstItem="h7o-Th-fqw" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="KT7-db-4zE"/>
+                            <constraint firstItem="deS-AX-KG8" firstAttribute="top" secondItem="hP9-Vc-rgY" secondAttribute="bottom" id="Rxy-uY-XFT"/>
+                            <constraint firstItem="hP9-Vc-rgY" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="SZE-wa-Fcf"/>
+                            <constraint firstItem="h7o-Th-fqw" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="a21-le-LFY"/>
+                            <constraint firstItem="hP9-Vc-rgY" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="poj-bf-mWD"/>
+                            <constraint firstItem="deS-AX-KG8" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="wv9-FX-HAh"/>
+                            <constraint firstItem="h7o-Th-fqw" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="zbD-19-5Gv"/>
+                            <constraint firstAttribute="bottom" secondItem="h7o-Th-fqw" secondAttribute="bottom" id="zlO-um-iGT"/>
+                            <constraint firstItem="deS-AX-KG8" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="zlW-AS-8QI"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="searchBar" destination="9GW-zg-adu" id="lS1-lj-Hys"/>
-                        <outlet property="tableView" destination="0p6-yR-t0e" id="oAA-T8-78P"/>
+                        <outlet property="searchBar" destination="hP9-Vc-rgY" id="fKE-Yh-4gx"/>
+                        <outlet property="segmentedControl" destination="SPd-qZ-jhc" id="Qux-RK-iO8"/>
+                        <outlet property="tableView" destination="h7o-Th-fqw" id="HIM-XP-Un4"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="120.8" y="4.9475262368815596"/>
+            <point key="canvasLocation" x="20" y="3.1484257871064472"/>
         </scene>
     </scenes>
     <resources>
