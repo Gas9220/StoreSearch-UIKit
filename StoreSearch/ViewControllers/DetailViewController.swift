@@ -8,14 +8,6 @@
 import UIKit
 
 class DetailViewController: UIViewController {
-    
-    enum AnimationStyle {
-        case slide
-        case fade
-    }
-    
-    var dismissStyle = AnimationStyle.fade
-
     @IBOutlet weak var popupView: UIView!
     @IBOutlet weak var artworkImageView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
@@ -26,26 +18,30 @@ class DetailViewController: UIViewController {
     
     var searchResult: SearchResult!
     var downloadTask: URLSessionDownloadTask?
+    var dismissStyle = AnimationStyle.fade
     
-    deinit {
-        print("deinit \(self)")
-        downloadTask?.cancel()
+    enum AnimationStyle {
+        case slide
+        case fade
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         transitioningDelegate = self
     }
-
+    
+    deinit {
+        print("deinit \(self)")
+        downloadTask?.cancel()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         popupView.layer.cornerRadius = 10
-        
         let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(close))
         gestureRecognizer.cancelsTouchesInView = false
         gestureRecognizer.delegate = self
         view.addGestureRecognizer(gestureRecognizer)
-        
         if searchResult != nil {
             updateUI()
         }
@@ -56,6 +52,7 @@ class DetailViewController: UIViewController {
         view.insertSubview(dimmingView, at: 0)
     }
     
+    // MARK: - Actions
     @IBAction func close() {
         dismissStyle = .slide
         dismiss(animated: true, completion: nil)
@@ -68,12 +65,11 @@ class DetailViewController: UIViewController {
     }
     
     // MARK: - Helper Methods
-    
     func updateUI() {
         nameLabel.text = searchResult.name
         
         if searchResult.artist.isEmpty {
-            artistNameLabel.text = "Unknown"
+            artistNameLabel.text = NSLocalizedString("Unknown", comment: "Uknown artist")
         } else {
             artistNameLabel.text = searchResult.artist
         }
@@ -87,13 +83,12 @@ class DetailViewController: UIViewController {
         
         let priceText: String
         if searchResult.price == 0 {
-            priceText = "Free"
+            priceText = NSLocalizedString("Free", comment: "Free")
         } else if let text = formatter.string(from: searchResult.price as NSNumber) {
             priceText = text
         } else {
             priceText = ""
         }
-        
         priceButton.setTitle(priceText, for: .normal)
         
         if let largeURL = URL(string: searchResult.imageLarge) {
@@ -108,17 +103,13 @@ extension DetailViewController: UIGestureRecognizerDelegate {
     }
 }
 
-
 extension DetailViewController: UIViewControllerTransitioningDelegate {
-    func animationController(
-        forPresented presented: UIViewController,
-        presenting: UIViewController,
-        source: UIViewController
-    ) -> UIViewControllerAnimatedTransitioning? {
+    
+    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         return BounceAnimationController()
     }
     
-    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    func animationController(forDismissed dismissed: UIViewController) ->  UIViewControllerAnimatedTransitioning? {
         switch dismissStyle {
         case .slide:
             return SlideOutAnimationController()

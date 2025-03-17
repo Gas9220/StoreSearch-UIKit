@@ -46,7 +46,7 @@ class Search {
             dataTask = session.dataTask(with: url) { data, response, error in
                 var newState = State.notSearchedYet
                 var success = false
-                // Was the search cancelled?
+
                 if let error = error as NSError?, error.code == -999 {
                     return
                 }
@@ -72,10 +72,14 @@ class Search {
     
     // MARK: - Private Methods
     private func iTunesURL(searchText: String, category: Category) -> URL {
+        let locale = Locale.autoupdatingCurrent
+        let language = locale.language.languageCode?.identifier ?? "en"
+        let countryCode = locale.region?.identifier ?? "en_US"
         let kind = category.type
         let encodedText = searchText.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!
-        let urlString = "https://itunes.apple.com/search?term=\(encodedText)&limit=200&entity=\(kind)"
+        let urlString = "https://itunes.apple.com/search?term=\(encodedText)&limit=200&entity=\(kind)&lang=\(language)&country=\(countryCode)"
         let url = URL(string: urlString)
+        print("URL: \(url!)")
         return url!
     }
     

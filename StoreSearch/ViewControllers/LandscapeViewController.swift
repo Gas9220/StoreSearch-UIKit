@@ -33,9 +33,7 @@ class LandscapeViewController: UIViewController {
 
         scrollView.removeConstraints(scrollView.constraints)
         scrollView.translatesAutoresizingMaskIntoConstraints = true
-        
         view.backgroundColor = UIColor(patternImage: UIImage(named: "LandscapeBackground")!)
-        
         pageControl.numberOfPages = 0
     }
     
@@ -108,8 +106,7 @@ class LandscapeViewController: UIViewController {
         let buttonHeight: CGFloat = 82
         let paddingHorz = (itemWidth - buttonWidth) / 2
         let paddingVert = (itemHeight - buttonHeight) / 2
-        
-        // Add the buttons
+
         var row = 0
         var column = 0
         var x = marginX
@@ -168,7 +165,7 @@ class LandscapeViewController: UIViewController {
     
     private func showNothingFoundLabel() {
         let label = UILabel(frame: CGRect.zero)
-        label.text = "Nothing Found"
+        label.text = NSLocalizedString("Nothing Found", comment: "No search results")
         label.textColor = UIColor.label
         label.backgroundColor = UIColor.clear
         

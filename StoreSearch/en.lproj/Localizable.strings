@@ -1,0 +1,58 @@
+/* 
+  Localizable.strings
+  StoreSearch
+
+  Created by Gaspare Monte on 17/03/25.
+  
+*/
+
+/* Format for artist name */
+"ARTIST_NAME_LABEL_FORMAT" = "%1$@ (%2$@)";
+
+/* Localized kind: Album */
+"Album" = "Album";
+
+/* Localized kind: Software */
+"App" = "App";
+
+/* Localized kind: Audio Book */
+"Audio Book" = "Audio Book";
+
+/* Localized kind: Book */
+"Book" = "Book";
+
+/* Localized kind: E-Book */
+"E-Book" = "E-Book";
+
+/* Free */
+"Free" = "Free";
+
+/* Localized kind: Feature Movie */
+"Movie" = "Movie";
+
+/* Localized kind: Music Video */
+"Music Video" = "Music Video";
+
+/* No search results */
+"Nothing Found" = "Nothing Found";
+
+/* OK */
+"OK" = "OK";
+
+/* Localized kind: Podcast */
+"Podcast" = "Podcast";
+
+/* Localized kind: Song */
+"Song" = "Song";
+
+/* Network error */
+"There was an error accessing the iTunes Store. Please try again." = "There was an error accessing the iTunes Store. Please try again.";
+
+/* Localized kind: TV Episode */
+"TV Episode" = "TV Episode";
+
+/* Uknown artist */
+"Unknown" = "Unknown";
+
+/* Whoops */
+"Whoops..." = "Whoops...";
