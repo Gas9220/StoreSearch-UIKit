@@ -12,6 +12,8 @@ class SearchViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     
+    weak var splitViewDetail: DetailViewController?
+    
     private let search = Search()
     var landscapeVC: LandscapeViewController?
     
@@ -32,22 +34,35 @@ class SearchViewController: UIViewController {
         tableView.register(cellNib, forCellReuseIdentifier: TableView.CellIdentifiers.nothingFoundCell)
         cellNib = UINib(nibName: TableView.CellIdentifiers.loadingCell, bundle: nil)
         tableView.register(cellNib, forCellReuseIdentifier: TableView.CellIdentifiers.loadingCell)
-        searchBar.becomeFirstResponder()
+        
+        if UIDevice.current.userInterfaceIdiom != .pad {
+            searchBar.becomeFirstResponder()
+        }
+        
+        title = NSLocalizedString("Search", comment: "split view primary title")
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if UIDevice.current.userInterfaceIdiom != .phone {
+            navigationController?.navigationBar.isHidden = true
+        }
     }
     
     override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
         super.willTransition(to: newCollection, with: coordinator)
-        
         switch newCollection.verticalSizeClass {
         case .compact:
-            showLandscape(with: coordinator)
+            if newCollection.horizontalSizeClass == .compact {
+                showLandscape(with: coordinator)
+            }
         case .regular, .unspecified:
             hideLandscape(with: coordinator)
         @unknown default:
             break
         }
     }
-    
+
     @IBAction func segmentChanged(_ sender: UISegmentedControl) {
         performSearch()
     }
@@ -60,6 +75,7 @@ class SearchViewController: UIViewController {
                 let indexPath = sender as! IndexPath
                 let searchResult = list[indexPath.row]
                 detailViewController.searchResult = searchResult
+                detailViewController.isPopUp = true
             }
         }
     }
@@ -123,6 +139,18 @@ class SearchViewController: UIViewController {
             })
         }
     }
+    
+    // MARK: - Private Methods
+    private func hidePrimaryPane() {
+        UIView.animate(
+            withDuration: 0.25,
+            animations: {
+                self.splitViewController!.preferredDisplayMode = .secondaryOnly
+            }, completion: { _ in
+                self.splitViewController!.preferredDisplayMode = .automatic
+            }
+        )
+    }
 }
 
 // MARK: - Search Bar Delegate
@@ -171,8 +199,19 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-        performSegue(withIdentifier: "ShowDetail", sender: indexPath)
+        searchBar.resignFirstResponder()
+        
+        if view.window!.rootViewController!.traitCollection.horizontalSizeClass == .compact {
+            tableView.deselectRow(at: indexPath, animated: true)
+            performSegue(withIdentifier: "ShowDetail", sender: indexPath)
+        } else {
+            if case .results(let list) = search.state {
+                splitViewDetail?.searchResult = list[indexPath.row]
+            }
+            if splitViewController!.displayMode != .oneBesideSecondary {
+                hidePrimaryPane()
+            }
+        }
     }
     
     func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
